@@ -1,0 +1,43 @@
+  const renderContent = () => {
+    switch (activeTab) {
+      case "dashboard": {
+        return (
+          <div className="space-y-6">
+            {/* Dashboard Content */}
+          </div>
+        );
+      }
+
+      case "products": {
+        return (
+          <div className="space-y-6">
+            {/* Products Content */}
+          </div>
+        );
+      }
+
+      case "orders": {
+        return (
+          <div className="space-y-6">
+            {/* Orders Content */}
+          </div>
+        );
+      }
+
+      case "classes": {
+        return (
+          <div className="container mx-auto">
+            <AdminClasses />
+          </div>
+        );
+      }
+
+      default: {
+        return (
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">Select a section from the sidebar</p>
+          </div>
+        );
+      }
+    }
+  };
