@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react"; 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +6,58 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle, Instagram, Facebook, Twitter, ExternalLink, PhoneCall } from "lucide-react";
+
+// Animation hook
+const useAnimateOnScroll = (delay = 0) => {
+  const ref = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            setIsInView(true);
+          }, delay);
+        }
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '-50px'
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [delay]);
+
+  return { ref, isInView };
+};
+
+const AnimatedSection = ({ children, className = "", delay = 0 }) => {
+  const { ref, isInView } = useAnimateOnScroll(delay);
+  
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-1000 ease-out transform ${
+        isInView 
+          ? "opacity-100 translate-y-0 scale-100" 
+          : "opacity-0 translate-y-8 scale-95"
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+};
 
 const Contact = () => {
   const [showAdmin, setShowAdmin] = useState(false);
@@ -46,246 +97,212 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: MapPin,
-      title: "Visit Our Studio",
-      details: [
-        "123 Flower Street",
-        "Garden District",
-        "City, State 12345"
-      ]
-    },
-    {
       icon: Phone,
       title: "Call Us",
       details: [
-        "Main: (555) 123-4567",
-        "Classes: (555) 123-4568",
-        "Emergency: (555) 123-4569"
+        "Main: +91 99728 03847",
+        "Classes: +91 99728 03847",
+        "Emergency: +91 99728 03847"
       ]
     },
     {
       icon: Mail,
       title: "Email Us",
       details: [
-        "info@blossomstudio.com",
-        "classes@blossomstudio.com",
-        "orders@blossomstudio.com"
+        "info@flowerschoolbengaluru.com",
+        "classes@flowerschoolbengaluru.com",
+        "orders@flowerschoolbengaluru.com"
       ]
     },
     {
       icon: Clock,
       title: "Business Hours",
       details: [
-        "Mon-Fri: 9:00 AM - 7:00 PM",
-        "Saturday: 9:00 AM - 6:00 PM",
-        "Sunday: 10:00 AM - 5:00 PM"
+        "Mon-Sat: 9:00 AM - 8:00 PM",
+        "Sunday: 10:00 AM - 6:00 PM"
       ]
     }
   ];
+
+  const socialLinks = [
+    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+  ];
+
+  const quickLinks = [
+    { name: "Home", href: "/" },
+    { name: "Classes", href: "/classes" },
+    { name: "About Us", href: "/about" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Contact", href: "/contact" }
+  ];
+
+  const openWhatsApp = () => {
+    window.open('https://wa.me/919972803847?text=Hello! I would like to place a flower order.', '_blank');
+  };
+
+  const makeCall = () => {
+    window.open('tel:+919972803847', '_self');
+  };
+
+  const openMapsInNewTab = () => {
+    window.open('https://www.google.com/maps/place/SIPANI+EAST+AVENUE,+6th+Block,+Koramangala,+Bengaluru,+Karnataka+560095', '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Header onAdminClick={() => setShowAdmin(true)} onNavigate={handleNavigation} />
       
-      <main className="pt-20">
+      <main className="pt-16 md:pt-20">
         {/* Page Header */}
-        <section className="bg-gradient-to-r from-accent/20 via-accent/10 to-transparent py-16">
-          <div className="container mx-auto px-4">
-            <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Contact Us
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Get in touch with us for flower orders, class inquiries, or any questions you may have
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Information */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              {contactInfo.map((info, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
-                      <info.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold mb-3">{info.title}</h3>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      {info.details.map((detail, idx) => (
-                        <p key={idx}>{detail}</p>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Form & Map */}
-        <section className="py-16 bg-muted/50">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Contact Form */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MessageCircle className="h-5 w-5" />
-                    Send us a Message
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          placeholder="Your full name"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          placeholder="your.email@example.com"
-                          required
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          placeholder="(555) 123-4567"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="subject">Subject *</Label>
-                        <Input
-                          id="subject"
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleInputChange}
-                          placeholder="How can we help you?"
-                          required
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <Label htmlFor="message">Message *</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        placeholder="Tell us more about your inquiry..."
-                        rows={6}
-                        required
-                      />
-                    </div>
-                    
-                    <Button type="submit" className="w-full">
-                      Send Message
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-
-              {/* Map & Additional Info */}
-              <div className="space-y-8">
-                {/* Map Placeholder */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Find Us</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                      <div className="text-center text-muted-foreground">
-                        <MapPin className="h-12 w-12 mx-auto mb-2" />
-                        <p>Interactive Map</p>
-                        <p className="text-sm">123 Flower Street, Garden District</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* FAQ */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Frequently Asked Questions</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-1">Do you deliver flowers?</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Yes, we offer local delivery within a 25-mile radius. Same-day delivery is available for orders placed before 2 PM.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">Can I book private classes?</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Absolutely! We offer private and group classes for special occasions. Contact us to discuss your requirements.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">Do you handle wedding flowers?</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Yes, we specialize in wedding flowers including bridal bouquets, centerpieces, and ceremony decorations.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">What's your cancellation policy?</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Classes can be cancelled up to 48 hours in advance for a full refund. Flower orders require 24-hour notice.
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+        <AnimatedSection delay={100}>
+          <section className="py-8 md:py-12 px-4 sm:px-6">
+            <div className="container mx-auto">
+              <div className="text-center">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 font-playfair">
+                  Get in {" "}
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-rose-400 font-semibold">
+                    Touch
+                  </span>
+                </h1>
+                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-sans">
+                  Ready to order flowers or join our classes? We're here to help!
+                </p>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
 
-        {/* Quick Contact CTA */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="text-center bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-12">
-              <h2 className="text-3xl font-bold mb-4">Need Immediate Assistance?</h2>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                For urgent flower orders or emergency inquiries, don't hesitate to call us directly.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="text-lg px-8">
-                  <Phone className="mr-2 h-5 w-5" />
-                  Call Now: (555) 123-4567
-                </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  <Mail className="mr-2 h-5 w-5" />
-                  Email Us
-                </Button>
+        {/* Contact Information Cards */}
+        <AnimatedSection delay={200}>
+          <section className="py-8 md:py-12 px-4 sm:px-6">
+            <div className="container mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 md:mb-16">
+                {contactInfo.map((info, index) => (
+                  <Card key={index} className="text-center hover:shadow-lg transition-all duration-500 ease-out hover:scale-105">
+                    <CardContent className="p-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4 mx-auto">
+                        <info.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="font-semibold mb-3 font-sans">{info.title}</h3>
+                      <div className="space-y-1 text-sm text-muted-foreground font-sans">
+                        {info.details.map((detail, idx) => (
+                          <p key={idx} className="break-words">{detail}</p>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Contact Section Layout */}
+              <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
+                {/* Contact Info - Left Side */}
+                <div className="space-y-6 md:space-y-8">
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-4 md:mb-6 font-playfair">Contact Information</h3>
+                    <div className="space-y-3 md:space-y-4">
+                      <div className="flex items-start space-x-3 md:space-x-4">
+                        <MapPin className="w-5 h-5 md:w-6 md:h-6 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-semibold text-sm md:text-base font-sans">Address</div>
+                          <div className="text-muted-foreground text-xs md:text-sm font-sans">
+                            #440, 18th Main Road, 6th Cross, 6th block Koramangala, koramangala, Bengaluru, Karnataka – 560095
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3 md:space-x-4">
+                        <Phone className="w-5 h-5 md:w-6 md:h-6 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-semibold text-sm md:text-base font-sans">Phone</div>
+                          <div className="text-muted-foreground text-xs md:text-sm font-sans">+91 99728 03847</div>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3 md:space-x-4">
+                        <Mail className="w-5 h-5 md:w-6 md:h-6 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-semibold text-sm md:text-base font-sans">Email</div>
+                          <div className="text-muted-foreground text-xs md:text-sm font-sans break-words">
+                            info@flowerschoolbengaluru.com
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3 md:space-x-4">
+                        <Clock className="w-5 h-5 md:w-6 md:h-6 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-semibold text-sm md:text-base font-sans">Hours</div>
+                          <div className="text-muted-foreground text-xs md:text-sm font-sans">
+                            Mon-Sat: 9AM-8PM, Sun: 10AM-6PM
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quick Action Buttons */}
+                  <div className="space-y-3 md:space-y-4">
+                    <h4 className="text-lg font-semibold font-sans">Quick Actions</h4>
+                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                      <Button 
+                        className=" text-white font-sans text-sm md:text-base"
+                        onClick={openWhatsApp}
+                        size="lg"
+                      >
+                        <MessageCircle className="w-4 h-4 mr-2" />
+                        WhatsApp Order
+                      </Button>
+                      <Button 
+                        onClick={makeCall}
+                        size="lg"
+                        className="font-sans text-sm md:text-base"
+                      >
+                        <PhoneCall className="w-4 h-4 mr-2" />
+                        Call Now
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Map - Right Side */}
+                <div className="space-y-6 md:space-y-8">
+                  {/* Google Maps Integration with Overlay */}
+                  <div className="relative rounded-xl overflow-hidden h-64 sm:h-80 md:h-96">
+                    <iframe 
+                      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2855.610430364254!2d77.62079447507593!3d12.94!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTLCsDU2JzI0LjAiTiA3N8KwMzcnMjIuOCJF!5e0!3m2!1sen!2sin!4v1710153926784!5m2!1sen!2sin" 
+                      width="100%" 
+                      height="100%" 
+                      style={{ border: 0 }} 
+                      allowFullScreen 
+                      loading="lazy" 
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="Flower School Bengaluru Location"
+                      className="absolute inset-0"
+                    ></iframe>
+                    
+                    {/* Map Overlay Button */}
+                    <div className="absolute bottom-4 right-4">
+                      <Button 
+                        onClick={openMapsInNewTab}
+                        size="sm"
+                        variant="secondary"
+                        className="bg-white/90 backdrop-blur-sm hover:bg-white font-sans"
+                      >
+                        <ExternalLink className="w-4 h-4 mr-1" />
+                        Open Map
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Additional Contact Options */}
+                  
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
+
+        
       </main>
 
       <Footer />

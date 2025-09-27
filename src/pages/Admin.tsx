@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AdminClasses } from "@/components/AdminClasses";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -400,7 +399,7 @@ const Admin = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case "dashboard": {
+      case "dashboard":
         return (
           <div className="space-y-6">
             <div>
@@ -466,9 +465,8 @@ const Admin = () => {
             </div>
           </div>
         );
-      }
 
-      case "products": {
+      case "products":
         return (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -914,9 +912,7 @@ const Admin = () => {
           </div>
         );
 
-      }
-      
-      case "orders": {
+      case "orders":
         return (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -1234,6 +1230,7 @@ const Admin = () => {
                           <SelectItem value="processing">Processing</SelectItem>
                           <SelectItem value="shipped">Shipped</SelectItem>
                           <SelectItem value="delivered">Delivered</SelectItem>
+                          <SelectItem value="completed">Completed</SelectItem>
                           <SelectItem value="cancelled">Cancelled</SelectItem>
                         </SelectContent>
                       </Select>
@@ -1255,23 +1252,174 @@ const Admin = () => {
           </div>
         );
 
-      }
-
-      case "classes": {
+      case "classes":
         return (
-          <div className="container mx-auto">
-            <AdminClasses />
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h1 className="text-3xl font-bold">Class Management</h1>
+              <Button onClick={() => setShowClassForm(true)}>
+                <Plus className="mr-2 h-4 w-4" />
+                Add Class
+              </Button>
+            </div>
+
+            {showClassForm && (
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>Create New Class</CardTitle>
+                    <Button variant="ghost" size="icon" onClick={() => setShowClassForm(false)}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <form className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="class-name">Class Name</Label>
+                        <Input id="class-name" placeholder="Enter class name" />
+                      </div>
+                      <div>
+                        <Label htmlFor="class-instructor">Instructor</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select instructor" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="sarah">Sarah Johnson</SelectItem>
+                            <SelectItem value="emily">Emily Chen</SelectItem>
+                            <SelectItem value="mike">Mike Rodriguez</SelectItem>
+                            <SelectItem value="yuki">Yuki Tanaka</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <Label>Class Date</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                "w-full justify-start text-left font-normal",
+                                !selectedDate && "text-muted-foreground"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={selectedDate}
+                              onSelect={setSelectedDate}
+                              initialFocus
+                              className="pointer-events-auto"
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                      <div>
+                        <Label htmlFor="class-time">Time</Label>
+                        <Input id="class-time" type="time" />
+                      </div>
+                      <div>
+                        <Label htmlFor="class-duration">Duration (hours)</Label>
+                        <Input id="class-duration" type="number" placeholder="2" />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="class-capacity">Max Capacity</Label>
+                        <Input id="class-capacity" type="number" placeholder="12" />
+                      </div>
+                      <div>
+                        <Label htmlFor="class-price">Price</Label>
+                        <Input id="class-price" placeholder="$45.00" />
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="class-description">Class Description</Label>
+                      <Textarea id="class-description" placeholder="Describe what students will learn..." />
+                    </div>
+                    <div className="flex gap-2">
+                      <Button type="submit">Create Class</Button>
+                      <Button type="button" variant="outline" onClick={() => setShowClassForm(false)}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            )}
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Scheduled Classes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {classes.map((cls) => (
+                    <div key={cls.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">{cls.name}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {cls.instructor} • {cls.date}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm">{cls.students}/{cls.capacity} students</span>
+                        <Badge variant="default">{cls.status}</Badge>
+                        <div className="flex gap-2">
+                          <Button
+                            size="icon"
+                            variant="outline"
+                            onClick={() => {
+                              setSelectedProduct(product);
+                              setIsViewModalOpen(true);
+                            }}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="icon"
+                            variant="outline"
+                            onClick={() => {
+                              setSelectedProduct(product);
+                              setIsEditModalOpen(true);
+                            }}
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="icon"
+                            variant="outline"
+                            onClick={() => {
+                              setSelectedProduct(product);
+                              setIsDeleteModalOpen(true);
+                            }}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         );
-      }
 
-      default: {
+      default:
         return (
           <div className="flex items-center justify-center h-64">
             <p className="text-muted-foreground">Select a section from the sidebar</p>
           </div>
         );
-      }
     }
   };
 
@@ -1386,12 +1534,12 @@ const Admin = () => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
               const updatedData = {
-                name: formData.get('name')?.toString() || '',
-                price: parseFloat(formData.get('price')?.toString() || '0'),
-                category: formData.get('category')?.toString() || '',
-                stockquantity: parseInt(formData.get('stockquantity')?.toString() || '0'),
-                description: formData.get('description')?.toString() || '',
-                instock: (formData.get('instock')?.toString() || 'false') === 'true'
+                name: formData.get('name'),
+                price: parseFloat(formData.get('price') as string),
+                category: formData.get('category'),
+                stockquantity: parseInt(formData.get('stockquantity') as string),
+                description: formData.get('description'),
+                instock: (formData.get('instock') as string) === 'true'
               };
               handleUpdateProduct(updatedData);
             }}>

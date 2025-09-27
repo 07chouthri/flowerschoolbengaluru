@@ -17,15 +17,15 @@ const Header = ({ onAdminClick, onNavigate }: HeaderProps) => {
 
   const navItems = [
     { name: "Home", path: "/" },
+      { name: "About", path: "/about" },
     { name: "Classes & Programs", path: "/classes" },
     { name: "Calendar", path: "/calendar" },
-    { name: "About", path: "/about" },
+  
     { name: "Contact", path: "/contact" },
   ];
 
-
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <header className="sticky top-0 z-50 bg-pink-50/95 backdrop-blur supports-[backdrop-filter]:bg-pink-50/60 border-b border-pink-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -33,12 +33,12 @@ const Header = ({ onAdminClick, onNavigate }: HeaderProps) => {
             <img 
               src={flowerSchoolLogo} 
               alt="The Flower School" 
-              className="h-12 w-auto mr-3"
+              className="h-12 w-auto mr-3 "
             />
             <div>
-              <h1 className="text-xl font-playfair font-bold text-foreground">
-                The Flower School
-              </h1>
+              <h1 className="text-xl font-playfair font-bold from-pink-600 to-pink-600 text-foreground">
+                The Flower School 
+              </h1> 
               <p className="text-xs text-muted-foreground">Bengaluru</p>
             </div>
           </Link>
@@ -49,8 +49,8 @@ const Header = ({ onAdminClick, onNavigate }: HeaderProps) => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`text-foreground hover:text-primary transition-smooth font-medium cursor-pointer hover-scale story-link animate-fade-in ${
-                  location.pathname === item.path ? 'text-primary border-b-2 border-primary' : ''
+                className={`text-foreground hover:text-pink-600 transition-smooth font-medium cursor-pointer hover-scale story-link animate-fade-in ${
+                  location.pathname === item.path ? 'text-pink-600 border-b-2 border-pink-600' : ''
                 }`}
               >
                 {item.name}
@@ -71,25 +71,25 @@ const Header = ({ onAdminClick, onNavigate }: HeaderProps) => {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-pink-50">
                 <div className="flex flex-col space-y-4 mt-8">
                   {navItems.map((item) => (
                     <Link
                       key={item.name}
                       to={item.path}
                       onClick={() => setIsOpen(false)}
-                      className={`text-lg font-medium text-foreground hover:text-primary transition-smooth text-left ${
-                        location.pathname === item.path ? 'text-primary font-semibold' : ''
+                      className={`text-lg font-medium text-foreground hover:text-pink-600 transition-smooth text-left ${
+                        location.pathname === item.path ? 'text-pink-600 font-semibold' : ''
                       }`}
                     >
                       {item.name}
                     </Link>
                   ))}
-                  <div className="flex flex-col space-y-3 pt-4 border-t border-border">
+                  <div className="flex flex-col space-y-3 pt-4 border-t border-pink-200">
                     <Link to="/admin">
                       <Button 
                         variant="outline" 
-                        className="justify-start w-full"
+                        className="justify-start w-full border-pink-300 hover:bg-pink-100"
                         onClick={() => setIsOpen(false)}
                       >
                         <User className="h-4 w-4 mr-2" />
@@ -99,7 +99,7 @@ const Header = ({ onAdminClick, onNavigate }: HeaderProps) => {
                     <Link to="/signin">
                       <Button 
                         variant="outline" 
-                        className="justify-start w-full"
+                        className="justify-start w-full border-pink-300 hover:bg-pink-100"
                         onClick={() => setIsOpen(false)}
                       >
                         <User className="h-4 w-4 mr-2" />
@@ -109,7 +109,7 @@ const Header = ({ onAdminClick, onNavigate }: HeaderProps) => {
                     <Link to="/signup">
                       <Button 
                         variant="default" 
-                        className="justify-start w-full"
+                        className="justify-start w-full bg-pink-600 hover:bg-pink-700"
                         onClick={() => setIsOpen(false)}
                       >
                         Sign Up

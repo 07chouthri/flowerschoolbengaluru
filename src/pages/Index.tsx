@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import FeaturedCollections from "@/components/FeaturedCollections";
 import ClassesPrograms from "@/components/ClassesPrograms";
 import Testimonials from "@/components/Testimonials";
-import SchoolShowcase from "@/components/SchoolShowcase";
+
 import Footer from "@/components/Footer";
 import AdminDashboard from "@/components/AdminDashboard";
 
@@ -60,15 +60,11 @@ const Index = () => {
         <div ref={heroRef} className="animate-fade-in">
           <Hero onNavigate={handleNavigation} />
         </div>
-        <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          <SchoolShowcase />
-        </div>
+        
         <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <FeaturedCollections />
         </div>
-        <div ref={classesRef} className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
-          <ClassesPrograms />
-        </div>
+        
         <div ref={aboutRef} className="animate-fade-in" style={{ animationDelay: '1.2s' }}>
           <Testimonials />
         </div>
