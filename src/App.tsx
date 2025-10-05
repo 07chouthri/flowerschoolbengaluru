@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from 'react-helmet-async';
+import { ScrollToTop } from "../src/pages/ScrollToTop";
 import Payment from "./pages/Payment";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
@@ -27,6 +28,7 @@ const App = () => (
         <SEO />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/shop" element={<Shop />} />

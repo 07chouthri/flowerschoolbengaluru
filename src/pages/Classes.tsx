@@ -195,9 +195,9 @@ const Classes = () => {
       <div className="min-h-screen bg-background">
         <Header onAdminClick={() => { }} onNavigate={() => { }} />
 
-        <main className="pt-20">
+        <main >
           {/* Hero Section */}
-          <section className=" bg-white">
+          <section className="mt-6 bg-white">
             <div className="container mx-auto text-center px-4">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
                 Our Courses

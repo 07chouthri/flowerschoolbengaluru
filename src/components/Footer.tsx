@@ -39,7 +39,6 @@ const Footer = () => {
     { name: "Home", href: "/" },
     { name: "Classes", href: "/classes" },
     { name: "About Us", href: "/about" },
-    { name: "Gallery", href: "/gallery" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -55,43 +54,41 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-      {/* Brand Section */}
-<div className="lg:col-span-1">
-  <div className="mb-4 flex items-center gap-3">
-    <img
-      src={Logo}
-      alt="Flower School Logo"
-      className="h-16 w-auto object-contain"
-    />
-    <span className="text-2xl font-bold text-gray-900">
-     The Flower School Bengaluru
-    </span>
-  </div>
 
-  <p className="text-gray-600 mb-6 leading-relaxed">
-    Creating beautiful moments with the art of flowers. From professional floristry courses 
-    to creative workshops, we bring the beauty of nature into your life.
-  </p>
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <div className="mb-4 flex items-center gap-3">
+              <img
+                src={Logo}
+                alt="Flower School Logo"
+                className="h-16 w-auto object-contain"
+              />
+              <span className="text-2xl font-bold text-gray-900">
+                The Flower School Bengaluru
+              </span>
+            </div>
 
-  <div className="flex space-x-4">
-    {socialLinks.map((social) => (
-      <Button
-        key={social.label}
-        variant="outline"
-        size="icon"
-        className="border-gray-300 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-colors"
-        asChild
-      >
-        <a href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
-          <social.icon className="h-4 w-4" />
-        </a>
-      </Button>
-    ))}
-  </div>
-</div>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Creating beautiful moments with the art of flowers. From professional floristry courses
+              to creative workshops, we bring the beauty of nature into your life.
+            </p>
 
-
+            <div className="flex space-x-4">
+              {socialLinks.map((social) => (
+                <Button
+                  key={social.label}
+                  variant="outline"
+                  size="icon"
+                  className="border-gray-300 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-colors"
+                  asChild
+                >
+                  <a href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
+                    <social.icon className="h-4 w-4" />
+                  </a>
+                </Button>
+              ))}
+            </div>
+          </div>
           {/* Quick Links */}
           <div>
             <h4 className="text-lg font-semibold text-gray-900 mb-6">Quick Links</h4>
@@ -145,8 +142,8 @@ const Footer = () => {
                 className="border-gray-300 focus:border-pink-600"
                 disabled={isSubscribing}
               />
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
                 onClick={handleSubscribe}
                 disabled={isSubscribing}
@@ -156,7 +153,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
         {/* Bottom Footer */}
         <div className="py-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
