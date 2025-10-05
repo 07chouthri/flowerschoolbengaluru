@@ -13,13 +13,14 @@ export default {
       },
     },
     extend: {
-      /* ✅ NEW FONTS */
+      /* ✅ INTER FONT AS PRIMARY */
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
-        playfair: ['"Playfair Display"', 'serif'],
-        lora: ['"Lora"', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Inter', 'system-ui', 'sans-serif'], // Changed to Inter
+        mono: ['Inter', 'system-ui', 'sans-serif'], // Changed to Inter
+        playfair: ['Inter', 'system-ui', 'sans-serif'], // Changed to Inter
+        lora: ['Inter', 'system-ui', 'sans-serif'], // Changed to Inter
+        inter: ['Inter', 'system-ui', 'sans-serif'], // Keep Inter
       },
       colors: {
         border: "hsl(var(--border))",

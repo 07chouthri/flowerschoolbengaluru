@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { getApiBaseURL } from './env';
 
-// Create axios instance with default config
+// Create axios instance with dynamic base URL
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://flowerschoolbengaluru.com/api',
+  baseURL: getApiBaseURL(),
   headers: {
     'Content-Type': 'application/json',
   },
@@ -28,16 +29,14 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
-    // Handle 401 errors (unauthorized)
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Only redirect to /signin for 401 if NOT a login attempt and user has a session
+    const isLoginRequest = originalRequest?.url?.includes('/signin') || originalRequest?.url?.includes('/login');
+    const hasSession = !!localStorage.getItem('sessionToken');
+    if (error.response?.status === 401 && !originalRequest._retry && !isLoginRequest && hasSession) {
       originalRequest._retry = true;
-      
-      // Clear session and redirect to signin
       localStorage.removeItem('sessionToken');
       window.location.href = '/signin';
     }
-
     return Promise.reject(error);
   }
 );

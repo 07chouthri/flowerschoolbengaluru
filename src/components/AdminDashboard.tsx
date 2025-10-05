@@ -97,7 +97,7 @@ const AdminDashboard = ({ onClose }: AdminDashboardProps) => {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-card">
           <div>
-            <h1 className="text-3xl font-playfair font-bold text-foreground">Admin Dashboard</h1>
+            <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
             <p className="text-muted-foreground">Manage your flower business and school</p>
           </div>
           <Button variant="ghost" size="icon" onClick={onClose}>
@@ -196,7 +196,7 @@ const AdminDashboard = ({ onClose }: AdminDashboardProps) => {
             {/* E-Commerce Tab */}
             <TabsContent value="ecommerce" className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-playfair font-bold">E-Commerce Management</h2>
+                <h2 className="text-2xl font-bold">E-Commerce Management</h2>
                 <Button className="shadow-soft">
                   <Plus className="h-4 w-4 mr-2" />
                   Add Product
@@ -258,7 +258,7 @@ const AdminDashboard = ({ onClose }: AdminDashboardProps) => {
             {/* School Tab */}
             <TabsContent value="school" className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-playfair font-bold">Flower School Management</h2>
+                <h2 className="text-2xl font-bold">Flower School Management</h2>
                 <div className="flex space-x-2">
                   <Button variant="outline">
                     <Calendar className="h-4 w-4 mr-2" />
@@ -315,7 +315,7 @@ const AdminDashboard = ({ onClose }: AdminDashboardProps) => {
 
             {/* Settings Tab */}
             <TabsContent value="settings" className="space-y-6">
-              <h2 className="text-2xl font-playfair font-bold">Settings</h2>
+              <h2 className="text-2xl font-bold">Settings</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>

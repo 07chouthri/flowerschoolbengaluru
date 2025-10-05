@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 
 export function AdminProtectedRoute({ children }: ProtectedRouteProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {

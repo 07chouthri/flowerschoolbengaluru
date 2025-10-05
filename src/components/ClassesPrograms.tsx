@@ -96,7 +96,7 @@ const ClassesPrograms = () => {
             <span className="text-pink-700 font-semibold">Professional Floristry Courses</span>
           </div>
           
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
             We Offer{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-rose-400 font-semibold ml-3">
               Following Courses
@@ -162,7 +162,7 @@ const ClassesPrograms = () => {
                 <span className="text-sm font-medium text-pink-600 bg-pink-50 px-3 py-1 rounded-full">
                   Course {selectedCourse + 1} of 3
                 </span>
-                <h3 className="text-3xl font-playfair font-bold text-gray-900 mt-1">
+                <h3 className="text-3xl font-bold text-gray-900 mt-1">
                   {courses[selectedCourse].title}
                 </h3>
               </div>
@@ -258,7 +258,7 @@ const ClassesPrograms = () => {
 
         {/* CTA Section */}
         <div className="text-center">
-          <h3 className="text-3xl font-playfair font-bold text-gray-900 mb-4">
+          <h3 className="text-3xl font-bold text-gray-900 mb-4">
             Ready to Start Your <span className="text-pink-600">Floral Journey</span>?
           </h3>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">

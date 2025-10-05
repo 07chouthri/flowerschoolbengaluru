@@ -4,9 +4,10 @@ import Hero from "@/components/Hero";
 import FeaturedCollections from "@/components/FeaturedCollections";
 import ClassesPrograms from "@/components/ClassesPrograms";
 import Testimonials from "@/components/Testimonials";
-
 import Footer from "@/components/Footer";
 import AdminDashboard from "@/components/AdminDashboard";
+import EventVenue from "@/components/EventVenue";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   const [showAdmin, setShowAdmin] = useState(false);
@@ -55,7 +56,12 @@ const Index = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 font-lora">
+      <SEO 
+        title="Bengaluru Flower School - Premier Flower Arranging Classes in Bangalore"
+        description="Join the best flower arranging classes in Bengaluru! Learn professional floral design from expert instructors. Workshops, courses and events for all skill levels in bangalore."
+        keywords="bengaluru flower school, bangalore flower classes, flower arranging bengaluru, floral design workshops bangalore, professional floristry bengaluru, flower arrangement courses bangalore, best flower school bengaluru"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
         <Header onAdminClick={() => setShowAdmin(true)} onNavigate={handleNavigation} />
         <div ref={heroRef} className="animate-fade-in">
           <Hero onNavigate={handleNavigation} />
@@ -63,6 +69,10 @@ const Index = () => {
         
         <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <FeaturedCollections />
+        </div>
+
+         <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <EventVenue />
         </div>
         
         <div ref={aboutRef} className="animate-fade-in" style={{ animationDelay: '1.2s' }}>

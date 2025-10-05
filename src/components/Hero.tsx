@@ -7,18 +7,22 @@ import School2 from "@/assets/School2.jpg";
 import CherryBlossom from "@/assets/cherryblossom.jpg";
 import { useNavigate } from "react-router-dom";
 
+// Import the logos
+import FlowerSchoolLogo from "@/assets/Flower_School_Logo_1757484169081 copy.png";
+import EcommerceBouquetLogo from "@/assets/E_Commerce_Bouquet_Bar_Logo_1757433847861.png";
+
 interface HeroProps {
   onNavigate?: (section: string) => void;
 }
 
 const Hero = ({ onNavigate }: HeroProps) => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [displayText, setDisplayText] = useState<string>("");
   const [currentImage, setCurrentImage] = useState<number>(0);
   const [showCherryBlossom, setShowCherryBlossom] = useState<boolean>(true);
   const images: string[] = [School, School1, School2];
   const sectionRef = useRef<HTMLElement>(null);
-const isInView = useInView(sectionRef, { once: true });
+  const isInView = useInView(sectionRef, { once: true });
   const fullText: string = "Start your floral journey with us";
 
   useEffect(() => {
@@ -57,7 +61,7 @@ const isInView = useInView(sectionRef, { once: true });
         setShowCherryBlossom(false);
       }
     };
-    
+
     checkBackground();
   }, []);
 
@@ -66,10 +70,10 @@ const isInView = useInView(sectionRef, { once: true });
       {/* Cherry Blossom Background */}
       {showCherryBlossom && (
         <div className="absolute inset-0">
-          <img 
-            src={CherryBlossom} 
-            alt="Cherry Blossom Background" 
-            className="w-full h-full object-cover opacity-20"
+          <img
+            src={CherryBlossom}
+            alt="Cherry Blossom Background"
+            className="w-full h-full object-cover opacity-30 rounded-[10px]"
           />
         </div>
       )}
@@ -84,7 +88,7 @@ const isInView = useInView(sectionRef, { once: true });
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Centered Content */}
         <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
-          
+
           {/* Welcome Title */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -92,11 +96,11 @@ const isInView = useInView(sectionRef, { once: true });
             transition={{ duration: 0.8 }}
             className="mb-6 md:mb-8 px-2"
           >
-           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-  <span className="bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
-    Welcome to The Flower School Bengaluru
-  </span>
-</h1>
+            <h1 className="mt-9 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+              <span className="bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+                Welcome to The Flower School Bengaluru
+              </span>
+            </h1>
 
           </motion.div>
 
@@ -119,14 +123,14 @@ const isInView = useInView(sectionRef, { once: true });
             className="mb-6 md:mb-8 max-w-2xl mx-4"
           >
             <blockquote className="text-base md:text-lg text-gray-700 font-medium leading-relaxed">
-              "Cultivating creativity with nature's finest blooms. Our mission is to teach floral design 
+              "Cultivating creativity with nature's finest blooms. Our mission is to teach floral design
               with deep respect for both artistry and environment."
             </blockquote>
           </motion.div>
 
           {/* Two Small Boxes - Stack on mobile, side by side on desktop */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full max-w-4xl px-4">
-            
+          <div className="mb-[100px] grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full max-w-4xl px-4">
+
             {/* Left Box - Features */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -134,6 +138,13 @@ const isInView = useInView(sectionRef, { once: true });
               transition={{ duration: 0.8, delay: 1.0 }}
               className="bg-white/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg border border-gray-200 flex flex-col h-full"
             >
+              <div className="flex justify-center mb-4">
+                <img
+                  src={FlowerSchoolLogo}
+                  alt="Flower School Logo"
+                  className="h-28 w-auto md:h-35 object-contain"
+                />
+              </div>
               <div className="flex-1">
                 <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Explore Our School</h3>
                 <div className="space-y-2 md:space-y-3 text-left">
@@ -157,15 +168,15 @@ const isInView = useInView(sectionRef, { once: true });
                 transition={{ duration: 0.6, delay: 1.4 }}
                 className="mt-4 md:mt-6"
               >
-               
-<Button
-  size="lg"
-  className="w-full text-sm md:text-lg px-4 md:px-8 py-2 md:py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg md:rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-0"
-  onClick={() => navigate("/classes")}
->
-  <span className="mr-2">📚</span>
-  Explore Courses
-</Button>
+
+                <Button
+                  size="lg"
+                  className="w-full text-sm md:text-lg px-4 md:px-8 py-2 md:py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg md:rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-0"
+                  onClick={() => navigate("/classes")}
+                >
+                  <span className="mr-2">📚</span>
+                  Explore Courses
+                </Button>
               </motion.div>
             </motion.div>
 
@@ -176,13 +187,22 @@ const isInView = useInView(sectionRef, { once: true });
               transition={{ duration: 0.8, delay: 1.2 }}
               className="bg-white/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg border border-gray-200 flex flex-col h-full"
             >
-              <div className="flex-1">
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-2">Beautiful Bouquets</h3>
-                <p className="text-gray-700 text-xs md:text-sm leading-relaxed">
-                  Discover our exquisite collection of handcrafted bouquets for every occasion. 
-                  From romantic arrangements to corporate designs. Our shop and school are in Bangalore. 
-                  You are welcome to visit our environment.
-                </p>
+              <div className="mflex-1">
+                <div className="flex-1 text-center">
+                  <div className="flex justify-center mb-10">
+                    <img
+                      src={EcommerceBouquetLogo}
+                      alt="E-commerce Bouquet Bar Logo"
+                      className="h-24 w-auto md:h-32 object-contain"
+                    />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-2">Beautiful Bouquets</h3>
+                  <p className="text-gray-700 text-xs md:text-sm leading-relaxed">
+                    Discover our exquisite collection of handcrafted bouquets for every occasion.
+                    From romantic arrangements to corporate designs. Our shop and school are in Bangalore.
+                    You are welcome to visit our environment.
+                  </p>
+                </div>
               </div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -190,20 +210,18 @@ const isInView = useInView(sectionRef, { once: true });
                 transition={{ duration: 0.6, delay: 1.6 }}
                 className="mt-4 md:mt-6"
               >
-                <Button 
-                  size="lg" 
-                  className="w-full text-sm md:text-lg px-4 md:px-8 py-2 md:py-3 bg-gradient-to-r from-red-500 to-emerald-500 text-white rounded-lg md:rounded-xl hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-0"
-                  // onClick={() => onNavigate?.('bouquets') || (window.location.href = '/bouquets')}
+                <Button
+                  size="lg"
+                  className="w-full text-sm md:text-lg px-4 md:px-8 py-2 md:py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg md:rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-0"
+                  onClick={() => window.open("https://flowerschoolbengaluru.com/shop", "_blank")}
                 >
                   <span className="mr-2">🌸</span>
                   View Bouquets
                 </Button>
+
               </motion.div>
             </motion.div>
           </div>
-
-          {/* Additional spacing for mobile */}
-          <div className="h-4 md:h-8"></div>
         </div>
       </div>
     </section>

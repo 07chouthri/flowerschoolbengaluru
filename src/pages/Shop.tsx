@@ -91,7 +91,7 @@ const Shop = () => {
     : products.filter(product => product.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10 font-lora">
+    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10">
       <Header onAdminClick={() => setShowAdmin(true)} onNavigate={handleNavigation} />
       
       <main className="pt-20">
@@ -100,7 +100,7 @@ const Shop = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20" />
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center animate-fade-in">
-              <h1 className="text-5xl md:text-7xl font-playfair font-bold text-white mb-6 drop-shadow-lg">
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
                 Flower Shop
               </h1>
               <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
@@ -118,7 +118,7 @@ const Shop = () => {
         {/* Category Filter */}
         <section className="py-12 bg-card/50 backdrop-blur border-b border-border/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-playfair font-semibold text-center mb-8 text-foreground">
+            <h2 className="text-2xl font-semibold text-center mb-8 text-foreground">
               Shop by Category
             </h2>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -140,7 +140,7 @@ const Shop = () => {
         <section className="py-20 bg-gradient-to-b from-background to-card/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-playfair font-bold text-foreground mb-4">
+              <h2 className="text-4xl font-bold text-foreground mb-4">
                 {selectedCategory === "All" ? "All Products" : selectedCategory}
               </h2>
               <p className="text-muted-foreground">
@@ -194,7 +194,7 @@ const Shop = () => {
                       </span>
                     </div>
                     
-                    <h3 className="font-playfair font-bold text-xl mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
+                    <h3 className="font-bold text-xl mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
                       {product.name}
                     </h3>
                     

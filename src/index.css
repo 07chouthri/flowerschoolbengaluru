@@ -8,12 +8,13 @@
 
 @layer base {
   :root {
-    /* ✅ NEW FONTS */
+    /* ✅ INTER FONT FOR ALL */
     --font-sans: 'Inter', system-ui, sans-serif;
-    --font-serif: 'Playfair Display', serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    --font-playfair: 'Playfair Display', serif;
-    --font-lora: 'Lora', serif;
+    --font-serif: 'Inter', system-ui, sans-serif;
+    --font-mono: 'Inter', system-ui, sans-serif;
+    --font-playfair: 'Inter', system-ui, sans-serif;
+    --font-lora: 'Inter', system-ui, sans-serif;
+    --font-inter: 'Inter', system-ui, sans-serif;
     
     /* Button Gradient Colors */
     --button-gradient-from: 330 84% 60%; /* pink-500 */
@@ -149,11 +150,22 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-playfair;
+    font-family: 'Inter', system-ui, sans-serif !important;
+  }
+
+  /* Ensure consistent Inter font family for ALL text elements */
+  p, span, div, label, input, textarea, button, a, li, td, th, select, option {
+    font-family: 'Inter', system-ui, sans-serif !important;
+  }
+
+  /* Force Inter for all possible text elements */
+  * {
+    font-family: 'Inter', system-ui, sans-serif !important;
   }
 }
 

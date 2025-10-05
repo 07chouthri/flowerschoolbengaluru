@@ -3,8 +3,38 @@ import Logo from "@/assets/Flower_School_Logo_1757484169081.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin, Heart } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import api from '@/lib/api';
+
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleSubscribe = async () => {
+    if (!email.trim()) {
+      toast.error("Please enter your email address");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    setIsSubscribing(true);
+    try {
+      await api.post('/api/landing/email', { email });
+      toast.success("Successfully subscribed to our newsletter!");
+      setEmail("");
+    } catch (error) {
+      console.error("Subscription error:", error);
+      toast.error("Failed to subscribe. Please try again.");
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
   const quickLinks = [
     { name: "Home", href: "/" },
     { name: "Classes", href: "/classes" },
@@ -110,13 +140,18 @@ const Footer = () => {
               <Input
                 type="email"
                 placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="border-gray-300 focus:border-pink-600"
+                disabled={isSubscribing}
               />
               <Button 
                 size="sm" 
                 className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                onClick={handleSubscribe}
+                disabled={isSubscribing}
               >
-                Subscribe
+                {isSubscribing ? "Subscribing..." : "Subscribe"}
               </Button>
             </div>
           </div>
